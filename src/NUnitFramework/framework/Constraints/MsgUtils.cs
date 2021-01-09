@@ -58,7 +58,7 @@ namespace NUnit.Framework.Constraints
         /// <summary>
         /// Default amount of items used by <see cref="FormatCollection"/> method.
         /// </summary>
-        internal const int DefaultMaxItems = 10;
+        internal static readonly int DefaultMaxItems = TestFormatter.MaxItems;
 
         /// <summary>
         /// Static string used when strings are clipped
@@ -168,9 +168,10 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="collection">The collection containing elements to write.</param>
         /// <param name="start">The starting point of the elements to write</param>
-        /// <param name="max">The maximum number of elements to write</param>
-        public static string FormatCollection(IEnumerable collection, long start = 0, int max = DefaultMaxItems)
+        /// <param name="maxItems">The maximum number of elements to write</param>
+        public static string FormatCollection(IEnumerable collection, long start = 0, int? maxItems = null)
         {
+            int max = maxItems.GetValueOrDefault(DefaultMaxItems);
             int count = 0;
             int index = 0;
             StringBuilder sb = new StringBuilder();
